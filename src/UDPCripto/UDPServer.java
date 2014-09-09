@@ -10,19 +10,19 @@ public class UDPServer {
         //Cria um servidor UDP na porta 9876
         DatagramSocket serverSocket = new DatagramSocket(9876);
         //Sockets apenas enviam bytes
-        Criptografia criph = new Criptografia();
+        Criptografia cripto = new Criptografia();
         byte[] receiveData = new byte[16];
         byte[] sendData = new byte[16];
         while (true) {
-            System.out.println("Servidor UDP recebendo dados...");
+            System.out.println("Servidor UDP ouvindo...");
             //Recebe as mensagens dos clientes
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
             //System.out.println("");
-            byte[] receb = receiveData;
-            for (int i = 0; i < receb.length; i++) {
+            byte[] recip = receiveData;
+            for (int i = 0; i < recip.length; i++) {
             }
-            String decrip = criph.decrypt(receb);
+            String decrip = cripto.decrypt(recip);
             System.out.println("");
             System.out.println("Recebido: "+ decrip);
             //Responde ao mesmo IP e Porta do pacote recebido.
@@ -30,7 +30,7 @@ public class UDPServer {
             int port = receivePacket.getPort();
             String capitalizedSentence = decrip.toUpperCase();
             sendData = capitalizedSentence.getBytes();
-            sendData = criph.encrypt(decrip);
+            sendData = cripto.encrypt(decrip);
             
             System.out.println("");
             for (int i = 0; i < sendData.length; i++) {
