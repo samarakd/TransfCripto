@@ -9,7 +9,7 @@ import java.net.InetAddress;
 public class UDPClient {
 
     public static void main(String args[]) throws Exception {
-        Criptografia cript = new Criptografia();
+        Criptografia cripto = new Criptografia();
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         DatagramSocket clientSocket = new DatagramSocket();
         InetAddress IPAddress = InetAddress.getByName("localhost");
@@ -17,11 +17,11 @@ public class UDPClient {
         byte[] receiveData = new byte[16];
         while (true) {
 
-            System.out.println("Apto a receber dados: ");
+            System.out.println("Cliente preparado para enviar: ");
             //Lê entrada do usuário
             String sentence = inFromUser.readLine();
 
-            sendData = cript.encrypt(sentence);
+            sendData = cripto.encrypt(sentence);
             for (int i = 0; i < sendData.length; i++) {
             }
             //Cria pacote udp
@@ -31,16 +31,16 @@ public class UDPClient {
             //Recebe resposta do servidor
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             clientSocket.receive(receivePacket);
-            byte[] receb = receiveData;
-            System.out.print("exercicio criphografia:  ");
-            for (int i = 0; i < receb.length; i++) {
-                System.out.print(new Integer(receb[i]) + " ");
+            byte[] recip = receiveData;
+            System.out.print("Cipher:  ");
+            for (int i = 0; i < recip.length; i++) {
+                System.out.print(new Integer(recip[i]) + " ");
             }
-            String decrip = cript.decrypt(receb);
+            String decrip = cripto.decrypt(recip);
             System.out.println("");
-            System.out.println("apto a Receber do servidor!!:  " + decrip);
+            System.out.println("Recebido do Servidor UDP:" + decrip);
             //Fecha conexão:
-            //clientSocket.close();
+            clientSocket.close();
         }
     }
 }

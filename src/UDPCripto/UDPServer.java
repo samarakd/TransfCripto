@@ -14,7 +14,7 @@ public class UDPServer {
         byte[] receiveData = new byte[16];
         byte[] sendData = new byte[16];
         while (true) {
-            System.out.println("Servidor UDP recebendo dados...");
+            System.out.println("Servidor UDP ouvindo...");
             //Recebe as mensagens dos clientes
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
@@ -32,7 +32,6 @@ public class UDPServer {
             sendData = capitalizedSentence.getBytes();
             sendData = criph.encrypt(decrip);
             
-            System.out.println("");
             for (int i = 0; i < sendData.length; i++) {
                 System.out.print(new Integer(sendData[i]) + " ");
             }
